@@ -1,0 +1,254 @@
+USE [master]
+GO
+/****** Object:  Database [carniceria]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+CREATE DATABASE [carniceria]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'carniceria', FILENAME = N'c:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\carniceria.mdf' , SIZE = 4160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'carniceria_log', FILENAME = N'c:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\carniceria_log.ldf' , SIZE = 1040KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [carniceria] SET COMPATIBILITY_LEVEL = 110
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [carniceria].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [carniceria] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [carniceria] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [carniceria] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [carniceria] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [carniceria] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [carniceria] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [carniceria] SET AUTO_CREATE_STATISTICS ON 
+GO
+ALTER DATABASE [carniceria] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [carniceria] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [carniceria] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [carniceria] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [carniceria] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [carniceria] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [carniceria] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [carniceria] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [carniceria] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [carniceria] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [carniceria] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [carniceria] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [carniceria] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [carniceria] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [carniceria] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [carniceria] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [carniceria] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [carniceria] SET  MULTI_USER 
+GO
+ALTER DATABASE [carniceria] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [carniceria] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [carniceria] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [carniceria] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER AUTHORIZATION ON DATABASE::[carniceria] TO [WhereAmI-PC\WhereAmI]
+GO
+USE [carniceria]
+GO
+/****** Object:  Table [dbo].[almacen]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[almacen](
+	[id] [uniqueidentifier] NOT NULL,
+	[cajas_carnes] [int] NULL,
+	[carnes_frias] [int] NULL,
+	[sodas] [int] NULL
+) ON [PRIMARY]
+
+GO
+UPDATE STATISTICS [dbo].[almacen] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[almacen] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[clientes]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[clientes](
+	[id] [uniqueidentifier] NOT NULL,
+	[nombre] [varchar](20) NOT NULL,
+	[nombre_2] [varchar](20) NULL,
+	[apellidos] [varchar](50) NOT NULL,
+	[telefono] [int] NULL,
+	[direccion] [text] NOT NULL,
+	[nombre_completo]  AS (([nombre]+[nombre_2])+[apellidos])
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+UPDATE STATISTICS [dbo].[clientes] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[clientes] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[cuentas_por_pagar]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[cuentas_por_pagar](
+	[id] [uniqueidentifier] NOT NULL,
+	[id_cliente] [int] NOT NULL,
+	[total_a_pagar] [money] NOT NULL,
+	[articulos_comprados] [int] NOT NULL
+) ON [PRIMARY]
+
+GO
+UPDATE STATISTICS [dbo].[cuentas_por_pagar] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[cuentas_por_pagar] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[empleados]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[empleados](
+	[id] [uniqueidentifier] NOT NULL,
+	[nombre] [varchar](20) NOT NULL,
+	[nombre_2] [varchar](20) NULL,
+	[apellidos] [varchar](50) NOT NULL,
+	[telefono] [int] NULL,
+	[direccion] [text] NOT NULL,
+	[sueldo] [int] NOT NULL,
+	[nombre_completo]  AS (([nombre]+[nombre_2])+[apellidos])
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+UPDATE STATISTICS [dbo].[empleados] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[empleados] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[productos]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[productos](
+	[id] [uniqueidentifier] NOT NULL,
+	[cant_carnes] [int] NULL,
+	[cortes_res] [float] NULL,
+	[cortes_cerdo] [float] NULL,
+	[cortes_pollo] [float] NULL,
+	[jamones] [int] NULL,
+	[chorizo] [int] NULL,
+	[total_de_cortes]  AS (([cortes_res]+[cortes_cerdo])+[cortes_pollo])
+) ON [PRIMARY]
+
+GO
+UPDATE STATISTICS [dbo].[productos] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[productos] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[proveedores]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[proveedores](
+	[id] [uniqueidentifier] NOT NULL,
+	[empresa] [varchar](100) NOT NULL,
+	[nombre] [varchar](15) NOT NULL,
+	[apellido_p] [varchar](20) NOT NULL,
+	[apellido_m] [varchar](20) NOT NULL,
+	[hora_recibido] [time](7) NOT NULL,
+	[fecha_recibido] [date] NOT NULL,
+	[fecha_pedido] [date] NOT NULL,
+	[hora_pedido] [time](7) NOT NULL
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+UPDATE STATISTICS [dbo].[proveedores] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[proveedores] TO  SCHEMA OWNER 
+GO
+/****** Object:  Table [dbo].[ventas]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ventas](
+	[id] [uniqueidentifier] NOT NULL,
+	[no_venta] [int] NOT NULL,
+	[costo] [float] NOT NULL,
+	[dia_venta] [date] NOT NULL
+) ON [PRIMARY]
+
+GO
+UPDATE STATISTICS [dbo].[ventas] WITH ROWCOUNT = 0, PAGECOUNT = 0
+GO
+ALTER AUTHORIZATION ON [dbo].[ventas] TO  SCHEMA OWNER 
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [cliente_apellido]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+CREATE NONCLUSTERED INDEX [cliente_apellido] ON [dbo].[clientes]
+(
+	[apellidos] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [empleado_apellido]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+CREATE NONCLUSTERED INDEX [empleado_apellido] ON [dbo].[empleados]
+(
+	[apellidos] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Statistic [cliente_apellido]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+UPDATE STATISTICS [dbo].[clientes]([cliente_apellido]) WITH STATS_STREAM = 0x0100000001000000000000000000000004F265810000000040000000000000000000000000000000A7030000A7000000320000000000000028D0000001000000, ROWCOUNT = 0, PAGECOUNT = 0
+GO
+/****** Object:  Statistic [empleado_apellido]    Script Date: 16/09/2017 04:42:25 p.m. ******/
+UPDATE STATISTICS [dbo].[empleados]([empleado_apellido]) WITH STATS_STREAM = 0x0100000001000000000000000000000004F265810000000040000000000000000000000000000000A7030000A7000000320000000000000028D0000001000000, ROWCOUNT = 0, PAGECOUNT = 0
+GO
+USE [master]
+GO
+ALTER DATABASE [carniceria] SET  READ_WRITE 
+GO
