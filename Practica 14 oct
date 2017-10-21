@@ -1,12 +1,12 @@
 USE [master]
 GO
-/****** Object:  Database [minisuper]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Database [minisuper]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 CREATE DATABASE [minisuper]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'minisuper', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\minisuper.mdf' , SIZE = 4160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+( NAME = N'minisuper', FILENAME = N'C:\Program Files (x86)\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\minisuper.mdf' , SIZE = 4160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'minisuper_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\minisuper_log.ldf' , SIZE = 1088KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'minisuper_log', FILENAME = N'C:\Program Files (x86)\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\minisuper_log.ldf' , SIZE = 1040KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 GO
 ALTER DATABASE [minisuper] SET COMPATIBILITY_LEVEL = 110
 GO
@@ -75,7 +75,7 @@ ALTER DATABASE [minisuper] SET TARGET_RECOVERY_TIME = 0 SECONDS
 GO
 USE [minisuper]
 GO
-/****** Object:  Table [dbo].[cajero]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[cajero]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -99,7 +99,7 @@ CREATE TABLE [dbo].[cajero](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[d_orden_c]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[d_orden_c]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,16 +113,17 @@ CREATE TABLE [dbo].[d_orden_c](
 	[precio] [money] NOT NULL,
 	[total] [money] NOT NULL,
 	[idProveedor] [uniqueidentifier] NOT NULL,
+	[Folio] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_d_orden_c] PRIMARY KEY CLUSTERED 
 (
-	[idProducto] ASC
+	[Folio] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[detalle_of]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[detalle_of]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +138,7 @@ CREATE TABLE [dbo].[detalle_of](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[detalle_v]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[detalle_v]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +157,7 @@ CREATE TABLE [dbo].[detalle_v](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[inventario]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[inventario]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,7 +172,7 @@ CREATE TABLE [dbo].[inventario](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[movimiento_e]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[movimiento_e]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,7 +183,7 @@ CREATE TABLE [dbo].[movimiento_e](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[movimiento_s]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[movimiento_s]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,7 +194,7 @@ CREATE TABLE [dbo].[movimiento_s](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[oferta]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[oferta]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -209,7 +210,7 @@ CREATE TABLE [dbo].[oferta](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[orden_c]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[orden_c]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -224,7 +225,7 @@ CREATE TABLE [dbo].[orden_c](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[pagos]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[pagos]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -247,7 +248,7 @@ CREATE TABLE [dbo].[pagos](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[producto]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[producto]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,7 +269,7 @@ CREATE TABLE [dbo].[producto](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[proveedor]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[proveedor]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -290,7 +291,7 @@ CREATE TABLE [dbo].[proveedor](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[ventas]    Script Date: 19/10/2017 09:44:07 p.m. ******/
+/****** Object:  Table [dbo].[ventas]    Script Date: 21/10/2017 01:19:14 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -308,6 +309,52 @@ CREATE TABLE [dbo].[ventas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+INSERT [dbo].[cajero] ([idCajero], [nombre], [apellidos], [telefono], [celular], [sexo], [fechaNac]) VALUES (N'17819f9c-b6d5-4fb6-8b33-3410c6c04377', N'Axel', N'Flores', N'81125698', N'811545982671', N'M         ', CAST(0x82230B00 AS Date))
+GO
+INSERT [dbo].[cajero] ([idCajero], [nombre], [apellidos], [telefono], [celular], [sexo], [fechaNac]) VALUES (N'27a70b55-c2ac-44cd-a07b-4fd855fabae8', N'Carolina', N'Castillo', N'81264785', N'8123908252', N'F         ', CAST(0xE0240B00 AS Date))
+GO
+INSERT [dbo].[cajero] ([idCajero], [nombre], [apellidos], [telefono], [celular], [sexo], [fechaNac]) VALUES (N'2fecc078-84da-4d26-98d9-93d44e1fa0e6', N'Aracely', N'Valadez', N'81828236', N'8120212067', N'F         ', CAST(0xB0210B00 AS Date))
+GO
+INSERT [dbo].[cajero] ([idCajero], [nombre], [apellidos], [telefono], [celular], [sexo], [fechaNac]) VALUES (N'f709ed62-cecd-4229-948f-acc54b677685', N'Sergio', N'Palma', N'87878787', N'811031548', N'M         ', CAST(0x03220B00 AS Date))
+GO
+INSERT [dbo].[inventario] ([idProducto], [cantidad]) VALUES (N'd6079e46-16a2-453f-9850-161f734bd98a', 600)
+GO
+INSERT [dbo].[inventario] ([idProducto], [cantidad]) VALUES (N'ac5db049-7d8c-4424-9ce6-4aa71155b526', 1000)
+GO
+INSERT [dbo].[inventario] ([idProducto], [cantidad]) VALUES (N'3054cee6-1130-4edf-87f0-b85bd61317f6', 5000)
+GO
+INSERT [dbo].[inventario] ([idProducto], [cantidad]) VALUES (N'45fc65cb-8b98-4f9b-96d7-bed4f1752b63', 2000)
+GO
+INSERT [dbo].[oferta] ([idOferta], [fecha_in], [fecha_fi]) VALUES (N'fdd41c61-d732-4d38-9ca3-041e60afd481', CAST(0x3C3D0B00 AS Date), CAST(0x4F3D0B00 AS Date))
+GO
+INSERT [dbo].[oferta] ([idOferta], [fecha_in], [fecha_fi]) VALUES (N'7531483c-fde7-4a3f-a89e-667c79d45749', CAST(0x783D0B00 AS Date), CAST(0x7B3D0B00 AS Date))
+GO
+INSERT [dbo].[oferta] ([idOferta], [fecha_in], [fecha_fi]) VALUES (N'6347c4fc-540f-4e9c-9818-d1717db4b49c', CAST(0x5A3D0B00 AS Date), CAST(0x6D3D0B00 AS Date))
+GO
+INSERT [dbo].[producto] ([idProducto], [descripcion], [nombre], [precio]) VALUES (N'd6079e46-16a2-453f-9850-161f734bd98a', N'Cereal', N'Zucaritas', 49.0000)
+GO
+INSERT [dbo].[producto] ([idProducto], [descripcion], [nombre], [precio]) VALUES (N'ac5db049-7d8c-4424-9ce6-4aa71155b526', N'Carne de res', N'Tyson', 80.0000)
+GO
+INSERT [dbo].[producto] ([idProducto], [descripcion], [nombre], [precio]) VALUES (N'3054cee6-1130-4edf-87f0-b85bd61317f6', N'Galletas', N'Chokis', 15.0000)
+GO
+INSERT [dbo].[producto] ([idProducto], [descripcion], [nombre], [precio]) VALUES (N'45fc65cb-8b98-4f9b-96d7-bed4f1752b63', N'Agua embotellada', N'Ciel', 10.0000)
+GO
+INSERT [dbo].[proveedor] ([idProveedor], [nombre], [direccion], [telefono], [celular]) VALUES (N'1fc0e252-fd0c-4bc7-8bd7-15cb7ff1fbc9', N'Aguas embotelladas Ciel', N'Col: Almaguer Beltrán #332', N'81250468', N'810541920612')
+GO
+INSERT [dbo].[proveedor] ([idProveedor], [nombre], [direccion], [telefono], [celular]) VALUES (N'08b2c51b-547f-4890-a279-38504f416d4a', N'Comercial de Carnes Tyson', N'Col: Pedro del alba #928', N'81687459', N'811526482106')
+GO
+INSERT [dbo].[proveedor] ([idProveedor], [nombre], [direccion], [telefono], [celular]) VALUES (N'9539ad9e-296e-4faa-be14-6cffb67c0d00', N'Comercial De Cereales', N'Col: Pedro Livas, #4343', N'8138134', N'846843183173')
+GO
+INSERT [dbo].[proveedor] ([idProveedor], [nombre], [direccion], [telefono], [celular]) VALUES (N'e76013b4-993b-4707-8413-dde71d81307a', N'Galletera Mexicana', N'Col: Cuauhtémoc #6631', N'81845268', N'845216857492')
+GO
+INSERT [dbo].[ventas] ([folio], [monto], [fecha], [hora], [producto_cant], [idCajero]) VALUES (N'17592d02-ab3b-4727-bb9b-077f02428264', 49.0000, CAST(0x673D0B00 AS Date), CAST(0x07800F9932770000 AS Time), 1, N'2fecc078-84da-4d26-98d9-93d44e1fa0e6')
+GO
+INSERT [dbo].[ventas] ([folio], [monto], [fecha], [hora], [producto_cant], [idCajero]) VALUES (N'0c7ea0c9-67bc-42fc-846b-35d112530d11', 74.0000, CAST(0x673D0B00 AS Date), CAST(0x070018CEF5780000 AS Time), 3, N'2fecc078-84da-4d26-98d9-93d44e1fa0e6')
+GO
+INSERT [dbo].[ventas] ([folio], [monto], [fecha], [hora], [producto_cant], [idCajero]) VALUES (N'97659996-9f9f-4a39-b835-3ec4e0df157d', 15.0000, CAST(0x673D0B00 AS Date), CAST(0x07000B59B3790000 AS Time), 1, N'27a70b55-c2ac-44cd-a07b-4fd855fabae8')
+GO
+INSERT [dbo].[ventas] ([folio], [monto], [fecha], [hora], [producto_cant], [idCajero]) VALUES (N'21e7e035-236f-4be4-96af-66e35b541e2c', 154.0000, CAST(0x673D0B00 AS Date), CAST(0x0700FBFA53790000 AS Time), 4, N'27a70b55-c2ac-44cd-a07b-4fd855fabae8')
 GO
 ALTER TABLE [dbo].[d_orden_c]  WITH CHECK ADD  CONSTRAINT [FK_d_orden_c_orden_c] FOREIGN KEY([idProveedor])
 REFERENCES [dbo].[orden_c] ([idProveedor])
@@ -343,11 +390,6 @@ ALTER TABLE [dbo].[detalle_v]  WITH CHECK ADD  CONSTRAINT [FK_detalle_v_ventas] 
 REFERENCES [dbo].[ventas] ([folio])
 GO
 ALTER TABLE [dbo].[detalle_v] CHECK CONSTRAINT [FK_detalle_v_ventas]
-GO
-ALTER TABLE [dbo].[movimiento_e]  WITH CHECK ADD  CONSTRAINT [FK_movimiento_e_d_orden_c] FOREIGN KEY([idProducto])
-REFERENCES [dbo].[d_orden_c] ([idProducto])
-GO
-ALTER TABLE [dbo].[movimiento_e] CHECK CONSTRAINT [FK_movimiento_e_d_orden_c]
 GO
 ALTER TABLE [dbo].[movimiento_e]  WITH CHECK ADD  CONSTRAINT [FK_movimiento_e_inventario] FOREIGN KEY([idProducto])
 REFERENCES [dbo].[inventario] ([idProducto])
